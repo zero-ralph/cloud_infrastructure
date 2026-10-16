@@ -53,7 +53,7 @@ resource "azuread_application_federated_identity_credential" "githubFederatedIde
 	application_id = azuread_application.githubApplication.id
 	display_name   = "github-cloud-infrastructure"
 	issuer         = "https://token.actions.githubusercontent.com"
-	subject		   = "repo:zero-ralph/cloud_infrastructure:ref:refs/heads/main"
+	subject        = "repo:zero-ralph@17931218/cloud_infrastructure@1421946635:ref:refs/heads/main"
 	audiences      = ["api://AzureADTokenExchange"]
 }
 
