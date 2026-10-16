@@ -3,7 +3,10 @@ name: Terraform Actions
 on:
   push:
     branches: ['main']
-    paths: ['infra/**']
+    paths:
+      - 'infra/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
 
 permissions:
   id-token: write
