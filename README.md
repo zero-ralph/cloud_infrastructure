@@ -22,6 +22,6 @@ az account set --subscription "<subscription-id>"
 
 # Initialise and apply
 terraform init
-terraform plan
+terraform planhow
 terraform apply
 ```
