@@ -11,6 +11,16 @@ terraform {
 provider "azurerm" {
     features {}
     subscription_id = var.subscription_id
+
+    # Only register what bootstrap needs; the default set includes slow
+    # providers (e.g. Microsoft.AVS) that can time out on a fresh subscription.
+    resource_provider_registrations = "none"
+    resource_providers_to_register = [
+        "Microsoft.Authorization",
+        "Microsoft.Consumption",
+        "Microsoft.Resources",
+        "Microsoft.Storage",
+    ]
 }
 
 provider "azuread" {}
