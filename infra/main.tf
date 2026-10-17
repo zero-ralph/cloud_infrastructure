@@ -33,7 +33,7 @@ resource "azurerm_storage_account" "personalStorageAccount" {
 }
 
 resource "azurerm_storage_container" "personalStorageContainer" {
-  name                  = "terraformstate"
+  name                  = "personalstoragecontainer"
   storage_account_id    = azurerm_storage_account.personalStorageAccount.id
   container_access_type = "private"
 }
