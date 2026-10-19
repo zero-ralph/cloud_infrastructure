@@ -30,6 +30,7 @@ resource "azurerm_storage_account" "personalStorageAccount" {
   blob_properties {
     versioning_enabled = true # old state versions are only KBs
   }
+  access_tier = "Cold"
 }
 
 resource "azurerm_storage_container" "personalStorageContainer" {
