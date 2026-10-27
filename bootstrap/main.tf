@@ -105,3 +105,26 @@ resource "azurerm_consumption_budget_subscription" "costGuardrail" {
 	    ignore_changes = [time_period]   # start date is set once
   	}
 }
+
+# Let the website repo's GitHub Actions log in as sp-github
+resource "azuread_application_federated_identity_credential" "website" {
+  application_id = azuread_application.githubApplication.id
+  display_name   = "github-website"
+  issuer         = "https://token.actions.githubusercontent.com"
+  subject        = "repo:zero-ralph@17931218/website@1429953392:ref:refs/heads/main"
+  audiences      = ["api://AzureADTokenExchange"]
+}
+
+# ACR is managed in infra/; look it up here
+data "azurerm_container_registry" "acr" {
+  name                = "acruad1cm"
+  resource_group_name = azurerm_resource_group.mainRG.name
+}
+
+# Allow sp-github to push images to the ACR
+resource "azurerm_role_assignment" "website_acr_push" {
+  scope                = data.azurerm_container_registry.acr.id
+  role_definition_name = "AcrPush"
+  principal_id         = azuread_service_principal.githubServicePrincipal.object_id
+  principal_type       = "ServicePrincipal"
+}
